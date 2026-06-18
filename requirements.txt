@@ -1,12 +1,7 @@
 fastapi
-
 uvicorn
 passlib
-jwt
 python-dotenv
-pathlib
 python-jose
-typing
-'pydantic[email]'
+pydantic[email]
 pymongo
-uuid
