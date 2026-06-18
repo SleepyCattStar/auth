@@ -52,6 +52,64 @@ MongoDB is used for:
 
 ---
 
+
+## 🏗️ Architecture
+
+![Architecture](docs/Architecture.png)
+
+### Components
+
+#### FastAPI Authentication Service
+Responsible for:
+
+- User Registration
+- User Login
+- JWT Generation
+- Refresh Token Management
+- User Authentication
+- Session Invalidation (Logout)
+
+#### MongoDB
+
+Stores:
+
+- User Accounts
+- Refresh Tokens
+- Account Security Information
+
+---
+
+
+##  Database Schema
+
+### users Collection
+
+```text
+users
+│
+├── _id
+├── username
+├── email
+├── full_name
+├── hashed_password
+├── disabled
+├── failed_attempts
+└── locked_until
+```
+
+### refresh_tokens Collection
+
+```text
+refresh_tokens
+│
+├── _id
+├── email
+├── refresh_token
+└── expires_at
+```
+
+---
+
 ## API Endpoints
 
 ### Register
