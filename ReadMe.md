@@ -53,7 +53,7 @@ MongoDB is used for:
 ---
 
 
-## 🏗️ Architecture
+##  Architecture
 
 ![Architecture](docs/Architecture.png)
 
