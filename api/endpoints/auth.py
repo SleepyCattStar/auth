@@ -11,6 +11,9 @@ from auth.services.auth_service import create_refresh_token,store_refresh_token
 
 from auth.services.auth_service import validate_refresh_token,delete_refresh_token
 
+from fastapi import Request
+from auth.services.rate_limit_service import get_remaining_time,check_login_rate_limit,clear_login_rate_limit
+
 router = APIRouter(
     prefix="/auth",
     tags=["Authentication"]
@@ -27,14 +30,35 @@ async def register_function(
 
 
 @router.post("/login")
-async def login(user: UserLogin):
+async def login(user: UserLogin, request: Request):
+
+    client_ip = request.client.host
+
+    allowed = check_login_rate_limit(client_ip,user.email)
+
+    if not allowed:
+        remaining_time = get_remaining_time(user.email,client_ip)
+
+        raise HTTPException(
+            status_code=429,
+            detail=f"Too many Login attempts! Try again in {remaining_time} seconds"
+        )
+
+
     authenticated_user = authenticate_user(user.email, user.password)
+
     
     if not authenticated_user:
         raise HTTPException(
             status_code= 401,
             detail = "Invalid Credentials"
         )
+
+    # on succesful login, we clear our redis queue
+    clear_login_rate_limit(
+        email=user.email,
+        ip=client_ip
+    )
 
     access_token = create_access_token({
         "sub": authenticated_user["email"]
