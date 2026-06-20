@@ -1,28 +1,40 @@
-services:
+# services:
 
+#   auth:
+#     build: .
+#     env_file:
+#       - .env
+#     ports:
+#       - "8000:8000"
+#     depends_on:
+#       - mongo
+#       - redis
+#     restart: unless-stopped
+
+
+#   mongo:
+#     image: mongo:8
+#     volumes:
+#       - mongo_data:/data/db
+#     restart: unless-stopped
+
+#   redis:
+#     image: redis:8
+#     ports:
+#       - "6379:6379"
+#     restart : unless-stopped
+
+# volumes:
+#   mongo_data:
+
+
+#The above one is used if deploying on AWS/AZURE
+#Now we dont need any of redis or mongo containers as they are deployed on free cloud services like upstash and mongo atlas
+services:
   auth:
     build: .
     env_file:
       - .env
     ports:
       - "8000:8000"
-    depends_on:
-      - mongo
-      - redis
     restart: unless-stopped
-
-
-  mongo:
-    image: mongo:8
-    volumes:
-      - mongo_data:/data/db
-    restart: unless-stopped
-
-  redis:
-    image: redis:8
-    ports:
-      - "6379:6379"
-    restart : unless-stopped
-
-volumes:
-  mongo_data:

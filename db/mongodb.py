@@ -1,11 +1,11 @@
 from pymongo import MongoClient
-import os
+from auth.config import MONGO_URL
 
 
 # client = MongoClient("mongodb://mongo:27017")
 
 client = MongoClient(
-    os.getenv("MONGO_URL")
+    MONGO_URL
 )
 
 db = client["auth_db"]
