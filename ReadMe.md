@@ -162,7 +162,9 @@ docker compose up --build
 ```
 
 <h5> Application: </h5>
-Test the backend here: 
+Test the backend here: (if you host it locally) 
+Please note that this microservice is not deployed on cloud 
+
 
 http://localhost:8000/docs
 
