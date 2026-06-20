@@ -1,6 +1,6 @@
 # Authentication Microservice
 
-An authentication microservice built using FastAPI, MongoDB and Docker.
+An authentication microservice built using FastAPI, MongoDB and containerized using docker.
 
 ## Features
 
