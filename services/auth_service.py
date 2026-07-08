@@ -148,6 +148,8 @@ def register_user(user: UserCreate):
         "username": user.username,
         "email" : user.email,
         "full_name" : user.full_name,
+        "provider": "local",
+        "google_id": None,
         "disabled" :user.disabled,
         "hashed_password": passwd_hashed,
         "failed_attempts": 0,

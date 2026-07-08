@@ -14,6 +14,8 @@ from auth.services.auth_service import validate_refresh_token,delete_refresh_tok
 from fastapi import Request
 from auth.services.rate_limit_service import get_remaining_time,check_login_rate_limit,clear_login_rate_limit
 
+from auth.services.google_auth_service import google_login, google_callback
+
 router = APIRouter(
     prefix="/auth",
     tags=["Authentication"]
@@ -92,6 +94,14 @@ async def read_me(token: str = Depends(oauth2_scheme)):
     return user
 
 
+@router.get("/google/login")
+async def google_login_route(request: Request):
+    return await google_login(request)
+
+@router.get("/google/callback", name="google_callback")
+async def google_callback_route(request: Request):
+    return await google_callback(request)
+
 @router.post("/refresh")
 async def refresh_token(request: RefreshTokenRequest):
     validated_token = validate_refresh_token(
@@ -132,3 +142,4 @@ async def logout(request: LogoutRequest):
     return{
         "message" : "Logged Out Successfully"
     }
+
